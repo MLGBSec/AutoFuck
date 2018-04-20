@@ -66,7 +66,9 @@ class AutoFuck():
         command_run = "method.{classname}('{url}').run()".format(classname=poc['method'], url=self.url)
         result = eval(command_run)
         if result:
-            save2file(self.url + poc['description'])
+            if mutex.acquire():
+                save2file(self.url + poc['description'])
+                mutex.release()
 
 
 def save2file(info):
@@ -108,4 +110,5 @@ def main():
 
 if __name__ == '__main__':
     cmsfinger = LoadCmsFingerprint()
+    mutex = threading.Lock()
     main()

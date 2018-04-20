@@ -22,10 +22,14 @@ class pkpmbs_guestbook_sqli_BaseVerify:
             req = requests.get(vulnurl, timeout=10, verify=False)
 
             if r"81dc9bdb52d04dc20036dbd8313ed055" in req.text:
-                cprint("[+]存在PKPMBS SQL注入漏洞...(高危)\tpayload: "+vulnurl, "red")
-
+                cprint("[+]存在PKPMBS SQL注入漏洞...(高危)\tpayload: "+vulnurl, "green")
+                return True
+            else:
+                cprint("[-]不存在PKPMBS SQL注入漏洞...(高危)\tpayload: "+vulnurl, "red")
+                return False
         except:
             cprint("[-] "+__file__+"====>连接超时", "cyan")
+            return False
 
 if __name__ == "__main__":
     warnings.filterwarnings("ignore")

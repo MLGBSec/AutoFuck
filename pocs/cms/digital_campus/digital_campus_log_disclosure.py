@@ -27,10 +27,15 @@ class digital_campus_log_disclosure_BaseVerify:
             req = requests.get(vulnurl, headers=headers, timeout=10, verify=False)
             result = pattern.findall(req.text)
             if len(result) != 0:
-                cprint("[+]存在Digital Campus2.0 Platform日志文件泄露...(中危)\tpayload: "+vulnurl, "yellow")
+                cprint("[+]存在Digital Campus2.0 Platform日志文件泄露...(中危)\tpayload: "+vulnurl, "green")
+                return True
+            else:
+                cprint("[-]存在Digital Campus2.0 Platform日志文件泄露...(中危)\tpayload: "+vulnurl, "red")
+                return False
 
         except:
             cprint("[-] "+__file__+"====>连接超时", "cyan")
+            return False
 
 if __name__ == "__main__":
     warnings.filterwarnings("ignore")

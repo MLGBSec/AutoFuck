@@ -25,9 +25,14 @@ class dedecms_error_trace_disclosure_BaseVerify:
             req = requests.get(vulnurl, headers=headers, timeout=10, verify=False)
             if r"<?php  exit()" in req.text:
                 cprint("[+]存在dedecms trace爆路径漏洞...(信息)\tpayload: "+vulnurl, "green")
+                return True
+            else:
+                cprint("[-]不存在dedecms trace爆路径漏洞...(信息)\tpayload: "+vulnurl, "red")
+                return False
 
         except:
             cprint("[-] "+__file__+"====>连接超时", "cyan")
+            return False
 
 if __name__ == "__main__":
     warnings.filterwarnings("ignore")

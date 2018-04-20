@@ -29,7 +29,11 @@ class pkpmbs_MsgList_sqli_BaseVerify:
         try:
             req = requests.post(vulnurl, data=post_data, headers=headers, timeout=10, verify=False)
             if r"GAOJIMicrosoft" in req.text:
-                cprint("[+]存在pkpmbs建设工程质量监督系统SQL注入漏洞...(高危)\tpayload: "+vulnurl+"\npost: "+json.dumps(post_data, indent=4), "red")
+                cprint("[+]存在pkpmbs建设工程质量监督系统SQL注入漏洞...(高危)\tpayload: "+vulnurl+"\npost: "+json.dumps(post_data, indent=4), "green")
+                return True
+            else:
+                cprint("[-]不存在pkpmbs建设工程质量监督系统SQL注入漏洞...(高危)\tpayload: "+vulnurl+"\npost: "+json.dumps(post_data, indent=4), "red")
+                return True
 
         except:
             cprint("[-] "+__file__+"====>连接超时", "cyan")

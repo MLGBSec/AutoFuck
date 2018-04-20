@@ -24,10 +24,15 @@ class dedecms_download_redirect_BaseVerify:
         try:
             req = requests.get(vulnurl, headers=headers, timeout=10, verify=False)
             if r"www.baidu.com" in req.text:
-                cprint("[+]存在dedecms download.php重定向漏洞...(低危)\tpayload: "+vulnurl, "blue")
+                cprint("[+]存在dedecms download.php重定向漏洞...(低危)\tpayload: "+vulnurl, "green")
+                return True
+            else:
+                cprint("[-]不存在dedecms download.php重定向漏洞...(低危)\tpayload: "+vulnurl, "red")
+                return False
 
         except:
             cprint("[-] "+__file__+"====>连接超时", "cyan")
+            return False
 
 if __name__ == "__main__":
     warnings.filterwarnings("ignore")

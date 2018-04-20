@@ -31,10 +31,15 @@ class autoset_phpmyadmin_unauth_BaseVerify:
         try:
             req = requests.post(vulnurl, data=post_data, headers=headers, timeout=10, verify=False)
             if r"li_server_type" in req.text:
-                cprint("[+]存在韩国autoset建站程序phpmyadmin任意登录漏洞...(高危)\tpayload: "+vulnurl+"\npost: "+json.dumps(post_data, indent=4), "red")
+                cprint("[+]存在韩国autoset建站程序phpmyadmin任意登录漏洞...(高危)\tpayload: "+vulnurl+"\npost: "+json.dumps(post_data, indent=4), "green")
+                return True
+            else:
+                cprint("[-]不存在韩国autoset建站程序phpmyadmin任意登录漏洞...(高危)\tpayload: "+vulnurl+"\npost: "+json.dumps(post_data, indent=4), "red")
+                return False
 
         except:
             cprint("[-] "+__file__+"====>连接超时", "cyan")
+            return False
 
 if __name__ == "__main__":
     warnings.filterwarnings("ignore")
