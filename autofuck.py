@@ -18,7 +18,7 @@ absolutepath = sys.path[0]
 
 def LoadCmsFingerprint():
     cmsfinger = []
-    cmsjson = "{0}{1}json/testcms.json".format(absolutepath, os.sep)
+    cmsjson = "{0}{1}json/cmsfingerprint.json".format(absolutepath, os.sep)
     with open(cmsjson) as f:
         cmsfinger = json.load(f)
 
@@ -70,8 +70,8 @@ class AutoFuck():
 
 
 def save2file(info):
-    with open('result.txt', 'ab') as f:
-        f.write(info+"\r\n")
+    with open('result.txt', 'a') as f:
+        f.write(info)
 
 def loadtargetfile(filename):
     targetlist = []
