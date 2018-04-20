@@ -39,12 +39,8 @@ class gwhatweb(object):
         test_url = "{0}{1}".format(self.url, data["url"])
         req = None
         try:
-            print("[!]spider website {0}".format(test_url))
             req = requests.get(test_url, timeout=10)
-            #
-            # rtext = req.text
-            # if rtext is None:
-            #     return
+
         except:
             rtext = ''
 

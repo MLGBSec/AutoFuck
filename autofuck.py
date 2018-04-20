@@ -64,8 +64,14 @@ class AutoFuck():
     def run(self, import_module, poc):
         method = importlib.import_module(import_module)
         command_run = "method.{classname}('{url}').run()".format(classname=poc['method'], url=self.url)
-        eval(command_run)
+        result = eval(command_run)
+        if result:
+            save2file(self.url + poc['description'])
 
+
+def save2file(info):
+    with open('result.txt', 'ab') as f:
+        f.write(info+"\r\n")
 
 def loadtargetfile(filename):
     targetlist = []
@@ -76,7 +82,7 @@ def loadtargetfile(filename):
     return targetlist
 
 
-
+#一条龙
 def onedragon(url):
     p = gwhatweb(url, cmsfinger)
     cms = p.whatweb()
@@ -87,7 +93,6 @@ def onedragon(url):
         cprint("Can't' Recognition this url {0}".format(url))
 
 def main():
-
     targetlist = loadtargetfile('target.txt')
     process_list = []
 
